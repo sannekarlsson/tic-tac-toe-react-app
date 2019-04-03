@@ -56,6 +56,8 @@ class Game extends React.Component {
             history: [{
                 // Squares states 
                 squares: Array(9).fill(null),
+                // 1. Square number clicked for (col, row)
+                location: null,
             }],
             stepNumber: 0,
             // Alternate between players X & O
@@ -82,6 +84,7 @@ class Game extends React.Component {
             // Concat arrays instead of push for immutability
             history: history.concat([{
                 squares: squares,
+                location: i,
             }]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
@@ -103,10 +106,15 @@ class Game extends React.Component {
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
 
-        // map((object w/ squares array, index)) 
+        // map((object w/ squares & location, index)) 
         const moves = history.map((step, move) => {
+            // Extra idea 1:
+            // Display the location for each move in the format (col, row) in the move history list.
+            const location = step.location;
+            const col = location % 3;
+            const row = Math.floor(location / 3);
             const desc = move ?
-                'Go to move #' + move :
+                `Go to move #${move} (${col}, ${row})` :
                 'Go to game start';
             return (
                 // Move index can be used as key, since the list items wont be re-ordered, deleted or inserted in the middle
@@ -170,6 +178,14 @@ function calculateWinner(squares) {
     }
     return null;
 }
+
+
+// ========================================
+
+// Extra idea 1: 
+// Display the location for each move in the format (col, row) in the move history list.
+// -- Added location (square number) to history state
+// -- Calculating (col, row) in Game render method
 
 // ==============================================
 //   https://reactjs.org/tutorial/tutorial.html 
