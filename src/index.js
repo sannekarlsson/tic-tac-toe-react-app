@@ -152,6 +152,10 @@ class Game extends React.Component {
         let status;
         if (winner) {
             status = 'Winner: ' + winner.player;
+            // Extra idea 6:
+            // When no one wins, display a message about the result being a draw.
+        } else if (this.state.stepNumber === 9) {
+            status = 'It\'s a draw';
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
@@ -244,6 +248,10 @@ function calculateWinner(squares) {
     -- Returning an object with the winner & the winning line from calculateWinner 
     -- Added class win in css for the highlight effect
     -- Adding the win class to the winning squares
+
+    Extra idea 6:
+    When no one wins, display a message about the result being a draw.
+    -- Added conditional to the status in Game render method
 */
 
 // ==============================================
