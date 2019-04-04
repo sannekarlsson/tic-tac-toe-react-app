@@ -15,6 +15,15 @@ function Square(props) {
     );
 }
 
+// 4. Order moves as well as the list number
+function MovesHistory(props) {
+    return (
+        props.isAscending ?
+            <ol>{props.moves}</ol> :
+            <ol reversed>{props.moves.reverse()}</ol>
+    );
+}
+
 class Board extends React.Component {
     renderSquare(i) {
         return (
@@ -58,6 +67,8 @@ class Game extends React.Component {
                 // 1. Square number clicked for (col, row)
                 location: null,
             }],
+            // 4. Toggle moves order
+            isAscending: true,
             stepNumber: 0,
             // Alternate between players X & O
             xIsNext: true,
@@ -97,6 +108,13 @@ class Game extends React.Component {
             // X is next after all even moves
             xIsNext: (step % 2) === 0,
         });
+    }
+
+    // 4. Toggle moves order
+    toggleMoves() {
+        this.setState({
+            isAscending: !this.state.isAscending,
+        })
     }
 
     render() {
@@ -147,7 +165,15 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <ol>{moves}</ol>
+                    {/* Extra idea 4:
+                        Add a toggle button that lets you sort the moves in either ascending or descending order. */}
+                    <button onClick={() => this.toggleMoves()}>
+                        Sort {this.state.isAscending ? 'descending' : 'ascending'}
+                    </button>
+                    <MovesHistory
+                        isAscending={this.state.isAscending}
+                        moves={moves}
+                    />
                 </div>
             </div>
         );
@@ -201,6 +227,12 @@ function calculateWinner(squares) {
     Rewrite Board to use two loops to make the squares instead of hardcoding them.
     -- Rendering squares with two loops in Board render method 
     -- Added key property to Square 
+
+    Extra idea 4:
+    Add a toggle button that lets you sort the moves in either ascending or descending order.
+    -- Added toggle button in Game render method
+    -- Implemented function to toggle the added state isAscending 
+    -- Created a MovesHistory functional component to toggle moves order 
 */
 
 // ==============================================
