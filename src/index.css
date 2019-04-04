@@ -57,3 +57,21 @@ body {
 .current {
   font-weight: bold;
 }
+
+/* 
+Extra idea 5: 
+When someone wins, highlight the three squares that caused the win. 
+*/
+.win {
+  background: #eee;
+  animation: opacity 1s 1;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

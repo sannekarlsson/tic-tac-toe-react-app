@@ -7,7 +7,7 @@ import './index.css';
 function Square(props) {
     return (
         <button
-            className="square"
+            className={"square" + (props.win ? " win" : "")}
             onClick={props.onClick}
         >
             {props.value}
@@ -31,6 +31,7 @@ class Board extends React.Component {
                 value={this.props.squares[i]}
                 onClick={() => this.props.onClick(i)}
                 key={i}
+                win={this.props.win && this.props.win.includes(i)}
             />
         );
     }
@@ -150,7 +151,7 @@ class Game extends React.Component {
 
         let status;
         if (winner) {
-            status = 'Winner: ' + winner;
+            status = 'Winner: ' + winner.player;
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
@@ -161,6 +162,7 @@ class Game extends React.Component {
                     <Board
                         squares={current.squares}
                         onClick={(i) => this.handleClick(i)}
+                        win={winner && winner.line}
                     />
                 </div>
                 <div className="game-info">
@@ -203,10 +205,13 @@ function calculateWinner(squares) {
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
+            return {
+                player: squares[a],
+                line: lines[i]
+            };
         }
     }
-    return null;
+    return;
 }
 
 
@@ -233,6 +238,12 @@ function calculateWinner(squares) {
     -- Added toggle button in Game render method
     -- Implemented function to toggle the added state isAscending 
     -- Created a MovesHistory functional component to toggle moves order 
+
+    Extra idea 5:
+    When someone wins, highlight the three squares that caused the win.
+    -- Returning an object with the winner & the winning line from calculateWinner 
+    -- Added class win in css for the highlight effect
+    -- Adding the win class to the winning squares
 */
 
 // ==============================================
