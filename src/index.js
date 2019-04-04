@@ -119,7 +119,12 @@ class Game extends React.Component {
             return (
                 // Move index can be used as key, since the list items wont be re-ordered, deleted or inserted in the middle
                 <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>
+                    <button
+                        // Extra idea 2:
+                        // Bold the currently selected item in the move list. 
+                        className={(move === this.state.stepNumber) ? "current" : ""}
+                        onClick={() => this.jumpTo(move)}
+                    >
                         {desc}
                     </button>
                 </li>
@@ -186,6 +191,11 @@ function calculateWinner(squares) {
 // Display the location for each move in the format (col, row) in the move history list.
 // -- Added location (square number) to history state
 // -- Calculating (col, row) in Game render method
+
+// Extra idea 2:
+// Bold the currently selected item in the move list. 
+// -- Added class current in css with font-weight bold
+// -- Added className current to the list item with the same index as stepNumber
 
 // ==============================================
 //   https://reactjs.org/tutorial/tutorial.html 

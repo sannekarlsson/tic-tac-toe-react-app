@@ -49,4 +49,11 @@ body {
     margin-left: 20px;
   }
   
-  
+  /* ======================== */
+  /* 
+  Extra idea 2:
+  Bold the currently selected item in the move list. 
+  */
+.current {
+  font-weight: bold;
+}
