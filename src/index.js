@@ -151,17 +151,18 @@ class Game extends React.Component {
 
         let status;
         if (winner) {
-            status = 'Winner: ' + winner.player;
+            status = `Winner: ${winner.player} – Nicely done!`;
             // Extra idea 6:
             // When no one wins, display a message about the result being a draw.
         } else if (this.state.stepNumber === 9) {
-            status = 'It\'s a draw';
+            status = 'It\'s a draw! Well played.';
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
 
         return (
             <div className="game">
+                <h1>Tic Tac Toe</h1>
                 <div className="game-board">
                     <Board
                         squares={current.squares}
@@ -170,11 +171,14 @@ class Game extends React.Component {
                     />
                 </div>
                 <div className="game-info">
-                    <div>{status}</div>
+                    <div className="status">{status}</div>
                     {/* Extra idea 4:
                         Add a toggle button that lets you sort the moves in either ascending or descending order. */}
-                    <button onClick={() => this.toggleMoves()}>
+                    <button className="sort"
+                        onClick={() => this.toggleMoves()}
+                    >
                         Sort {this.state.isAscending ? 'descending' : 'ascending'}
+                        <span className="arrows">&lt;&gt;</span>
                     </button>
                     <MovesHistory
                         isAscending={this.state.isAscending}

@@ -1,37 +1,123 @@
+:root {
+  --bg-color: #fafafa;
+  --font-color: #121212;
+  --dark-grey: #999;
+  --grey: #b4b4b4;
+
+  --board-border: 1px solid var(--grey);
+  --square-size: 80px;
+}
+
+html {
+  color: var(--font-color);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
 body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
-  }
+  background: var(--bg-color);
+  margin: 3.75rem 0;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+ol {
+  padding-left: 1.8em;
+  font-family: 'Abril Fatface', cursive;
+  margin-top: -0.3em;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: 1fr; 
+  grid-gap: 3.25rem;
+  justify-items: center;
+  /* to not stretch downwards with the history list  */
+  align-items: start;
+}
+
+.game-board {
+  border-top: var(--board-border);
+  border-left: var(--board-border);
+}
+
+.board-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+button {
+  /* reset */
+  background: none; 
+  /* reset */
+  border: none; 
+  border-bottom: var(--board-border);
+  /* reset */
+  font-size: inherit;
+  padding: 0.8em;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  letter-spacing: .02em;
+}
+
+button:hover:not(.square),
+button:focus:not(.square) {
+  color: var(--dark-grey);
+}
+
+.square {
+  background: white; 
+  border-right: var(--board-border);
+  color: var(--font-color);
+  font-size: 2rem;
+  font-weight: 100;
+  height: var(--square-size);
+  width: var(--square-size);
+  /* reset button padding */
+  padding: 0;
+}
+
+.game-info {
+  display: grid;
+  grid-template-columns: calc(var(--square-size) * 3);
+  grid-row-gap: 1.1rem;
+}
+
+.status {
+  font-weight: 500;
+  letter-spacing: .03em;
+}
+
+.sort {
+  border-top: var(--board-border);
+  letter-spacing: 0.038em;
+  padding: 0.7em 0;
+}
+
+span.arrows {
+  position: relative;
+  top: 0.03em;
+  /* to Sort */
+  margin-left: 0.3em; 
+  opacity: 0.7;
+  /* between arrows */
+  letter-spacing: 0.14em; 
+  /* needed to transform */
+  display: inline-block; 
+  transform: scale(1.3, 0.9) rotate(90deg);
+}
   
-  ol, ul {
-    padding-left: 30px;
-  }
-  
-  .board-row:after {
-    clear: both;
-    content: "";
-    display: table;
-  }
-  
-  .status {
-    margin-bottom: 10px;
-  }
-  
-  .square {
-    background: #fff;
-    border: 1px solid #999;
-    float: left;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 34px;
-    height: 34px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 34px;
-  }
-  
+/* ==================
+    From tutorial 
+===================*/
   .square:focus {
     outline: none;
   }
@@ -39,28 +125,19 @@ body {
   .kbd-navigation .square:focus {
     background: #ddd;
   }
-  
-  .game {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .game-info {
-    margin-left: 20px;
-  }
-  
-  /* ======================== */
-  /* 
+/* ======================== */
+
+/* 
   Extra idea 2:
   Bold the currently selected item in the move list. 
-  */
+*/
 .current {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 /* 
-Extra idea 5: 
-When someone wins, highlight the three squares that caused the win. 
+  Extra idea 5: 
+  When someone wins, highlight the three squares that caused the win. 
 */
 .win {
   background: #eee;
@@ -73,5 +150,18 @@ When someone wins, highlight the three squares that caused the win.
   }
   100% {
     opacity: 1;
+  }
+}
+
+/* Wider screens */
+@media (min-width: 760px) {
+  .game {
+    grid-template-columns: 1fr 1fr;
+    margin: 0 auto;
+    width: 610px;
+  }
+  
+  .game-board {
+    grid-column: 1;
   }
 }
