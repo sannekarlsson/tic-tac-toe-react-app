@@ -21,28 +21,27 @@ class Board extends React.Component {
             <Square
                 value={this.props.squares[i]}
                 onClick={() => this.props.onClick(i)}
+                key={i}
             />
         );
     }
 
     render() {
+        // Extra idea 3. 
+        // Rewrite Board to use two loops to make the squares instead of hardcoding them.
+        const dimension = 3;
+        const rows = [];
+        for (let row = 0; row < dimension; row++) {
+            const cols = [];
+            for (let col = 0; col < dimension; col++) {
+                cols.push(this.renderSquare(dimension * row + col));
+            }
+            rows.push(<div className="board-row" key={row}>{cols}</div>);
+        }
+
         return (
             <div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
+                {rows}
             </div>
         );
     }
@@ -187,15 +186,22 @@ function calculateWinner(squares) {
 
 // ========================================
 
-// Extra idea 1: 
-// Display the location for each move in the format (col, row) in the move history list.
-// -- Added location (square number) to history state
-// -- Calculating (col, row) in Game render method
+/* 
+    Extra idea 1: 
+    Display the location for each move in the format (col, row) in the move history list.
+    -- Added location (square number) to history state
+    -- Calculating (col, row) in Game render method
 
-// Extra idea 2:
-// Bold the currently selected item in the move list. 
-// -- Added class current in css with font-weight bold
-// -- Added className current to the list item with the same index as stepNumber
+    Extra idea 2:
+    Bold the currently selected item in the move list. 
+    -- Added class current in css with font-weight bold
+    -- Added className current to the list item with the same index as stepNumber
+
+    Extra idea 3:
+    Rewrite Board to use two loops to make the squares instead of hardcoding them.
+    -- Rendering squares with two loops in Board render method 
+    -- Added key property to Square 
+*/
 
 // ==============================================
 //   https://reactjs.org/tutorial/tutorial.html 
